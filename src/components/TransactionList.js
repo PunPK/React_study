@@ -20,8 +20,8 @@ export default function TransactionList(props) {
             />
           </td>
           <td>
-            <button onClick={() => alert(deleteTransaction(transaction.id))}>
-              ลบ
+            <button onClick={() => props.onRowDeleted(transaction.id)}>
+              Delete
             </button>
           </td>
         </tr>

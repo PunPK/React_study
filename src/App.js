@@ -2,6 +2,8 @@ import "./App.css";
 import TransactionList from "./components/TransactionList";
 import { useState, useEffect } from "react";
 import dayjs from "dayjs";
+import { Button, Table, Tag } from "antd";
+import AddItem from "./components/AddItem";
 
 function App() {
   const [transactionData, setTransactionData] = useState([
@@ -21,9 +23,6 @@ function App() {
     },
   ]);
   const [amount, setAmount] = useState(calculateCurrentAmount(transactionData));
-  const [type, setType] = useState("income");
-  const [newAmount, setNewAmount] = useState("");
-  const [note, setNote] = useState("");
 
   function calculateCurrentAmount(trxData) {
     return trxData.reduce(
@@ -34,6 +33,18 @@ function App() {
       0
     );
   }
+  useEffect(() => {
+    console.log(transactionData);
+    setAmount(
+      transactionData.reduce(
+        (sum, transaction) =>
+          transaction.type === "income"
+            ? (sum += transaction.amount)
+            : (sum -= transaction.amount),
+        0
+      )
+    );
+  }, [transactionData]);
   const handleNoteChanged = (id, note) => {
     setTransactionData(
       transactionData.map((transaction) => {
@@ -43,16 +54,72 @@ function App() {
     );
   };
 
-  const generateTransaction = (type, amt, note) => {
-    return {
-      id: transactionData.length + 1,
-      // created: new Date().toLocaleString(),
-      created: dayjs().format("DD/MM/YYYY - HH.mm"),
-      type: type,
-      amount: amt,
-      note: note,
-    };
+  const handleAddItem = (itemData) => {
+    setTransactionData([
+      ...transactionData,
+      {
+        id: transactionData.length + 1,
+        created: dayjs().format("DD/MM/YYYY - HH:mm"),
+        ...itemData,
+      },
+    ]);
   };
+
+  const handleRowDelete = (id) => {
+    setTransactionData(transactionData.filter((trx) => trx.id !== id));
+  };
+
+  // id: 1,
+  // created: "01/02/2021 - 08:30",
+  // type: "income",
+  // amount: 20000,
+  // note: "allowance",
+  const columns = [
+    {
+      title: "id",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => <a>{id}</a>,
+    },
+    {
+      title: "created",
+      dataIndex: "created",
+      key: "created",
+    },
+    {
+      title: "type",
+      dataIndex: "type",
+      // key: "type",
+      // render: (_, record) => {
+      //   const types = record.types || []; // ตรวจสอบว่า types มีค่าหรือไม่ ถ้าไม่มี ให้ใช้ array ว่าง
+      //   return (
+      //     <>
+      //       {types.map((transaction, index) => {
+      //         let color = transaction.type === "income" ? "green" : "red";
+      //         if (transaction.type === "loser") {
+      //           color = "volcano";
+      //         }
+      //         return (
+      //           <Tag color={color} key={`${transaction.type}-${index}`}>
+      //             {transaction.type.toUpperCase()}
+      //           </Tag>
+      //         );
+      //       })}
+      //     </>
+      //   );
+      // },
+    },
+    {
+      title: "amount",
+      key: "amount",
+      dataIndex: "amount",
+    },
+    {
+      title: "note",
+      key: "note",
+      dataIndex: "note",
+    },
+  ];
 
   return (
     <div className="App">
@@ -63,32 +130,13 @@ function App() {
         {amount < 10000 && (
           <p style={{ color: "red" }}>So Poor... - {amount}</p>
         )}
-        <select value={type} onChange={(evt) => setType(evt.target.value)}>
-          <option value="income">รายรับ</option>
-          <option value="expense">รายจ่าย</option>
-        </select>
-        <input
-          type="number"
-          value={newAmount}
-          onChange={(evt) => setNewAmount(parseInt(evt.target.value))}
-        />
-        <input value={note} onChange={(evt) => setNote(evt.target.value)} />
-        <button
-          onClick={() => {
-            const data = [
-              ...transactionData,
-              generateTransaction(type, newAmount, note),
-            ];
-            setTransactionData(data);
-            setAmount(calculateCurrentAmount(data));
-          }}
-        >
-          Add Transaction
-        </button>
-        <TransactionList
+        <AddItem onItemAdded={handleAddItem} />
+        {/* <TransactionList
           data={transactionData}
           onNoteChanged={handleNoteChanged}
-        />
+          onRowDeleted={handleRowDelete}
+        /> */}
+        <Table columns={columns} dataSource={transactionData} />
       </header>
     </div>
   );
