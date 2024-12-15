@@ -1,47 +1,65 @@
+import React from "react";
+import { Button, Table, Space, Tag, Popconfirm, Modal } from "antd";
+import { DeleteOutlined, BugOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+
 export default function TransactionList(props) {
-  const generateRows = () => {
-    //ใช้งาน props ส่งผ่านค่ามา
-    // console.log(props.name);
-    if (props.data != null) {
-      return props.data.map((transaction) => (
-        <tr
-          bgcolor={transaction.type === "income" ? "green" : "red"}
-          key={transaction.id}
-        >
-          <td>{transaction.created}</td>
-          <td>{transaction.type}</td>
-          <td>{transaction.amount}</td>
-          <td>
-            <input
-              value={transaction.note}
-              onChange={(evt) => {
-                props.onNoteChanged(transaction.id, evt.target.value);
-              }}
+  const columns = [
+    {
+      title: "Date-Time",
+      dataIndex: "action_datetime",
+      key: "action_datetime",
+      render: (_, record) =>
+        dayjs(record.action_datetime).format("DD/MM/YYYY - HH:mm"),
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      render: (_, record) => (
+        <Tag color={record.type === "income" ? "green" : "red"}>
+          {record.type}
+        </Tag>
+      ),
+    },
+    { title: "Amount", dataIndex: "amount", key: "amount" },
+    { title: "Note", dataIndex: "note", key: "note" },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <Popconfirm
+            title="Delete the transaction"
+            description="Are you sure to delete this transaction?"
+            onConfirm={() => props.onRowDeleted(record.id)}
+          >
+            <Button
+              danger
+              type="primary"
+              shape="circle"
+              icon={<DeleteOutlined />}
             />
-          </td>
-          <td>
-            <button onClick={() => props.onRowDeleted(transaction.id)}>
-              Delete
-            </button>
-          </td>
-        </tr>
-      ));
-    } else {
-      return null;
-    }
-  };
+          </Popconfirm>
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<BugOutlined />}
+            onClick={() => {
+              Modal.info({
+                title: "Debug",
+                content: JSON.stringify(record),
+              });
+            }}
+          />
+        </Space>
+      ),
+    },
+  ];
+
   return (
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Date-Time</th>
-          <th>Type</th>
-          <th>amount</th>
-          <th>note</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>{generateRows()}</tbody>
-    </table>
+    <>
+      <Table columns={columns} dataSource={props.data} />
+    </>
   );
 }
