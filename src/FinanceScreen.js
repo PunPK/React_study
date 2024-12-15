@@ -70,6 +70,18 @@ function FinanceScreen() {
     }
   };
 
+  const handleRowEdit = async (id) => {
+    try {
+      setIsLoading(true);
+      await axios.update(`${URL_TXACTIONS}/${id}`);
+      fetchItems();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchItems();
   }, []);
@@ -100,6 +112,7 @@ function FinanceScreen() {
             data={transactionData}
             onNoteChanged={handleNoteChanged}
             onRowDeleted={handleRowDeleted}
+            onRowEdit={handleRowEdit}
           />
         </Spin>
       </header>
