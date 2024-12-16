@@ -32,7 +32,7 @@ export default function TransactionList(props) {
           <Popconfirm
             title="Edit the transaction"
             description="Are you sure to Edit this transaction?"
-            onConfirm={() => props.onRowEdit(record.id)}
+            onConfirm={() => props.onRowEdit(record)}
           >
             <Button
               // danger

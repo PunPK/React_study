@@ -13,6 +13,7 @@ function FinanceScreen() {
   const [summaryAmount, setSummaryAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [transactionData, setTransactionData] = useState([]);
+  const [EditData, setEditData] = useState([]);
 
   const fetchItems = async () => {
     try {
@@ -70,11 +71,11 @@ function FinanceScreen() {
     }
   };
 
-  const handleRowEdit = async (id) => {
+  const updateItem = async (id, item) => {
     try {
       setIsLoading(true);
-      await axios.update(`${URL_TXACTIONS}/${id}`);
-      fetchItems();
+      await axios.put(`${URL_TXACTIONS}/${item.id}`, { data: item });
+      setEditData([...transactionData, { id: id, key: id }]);
     } catch (err) {
       console.log(err);
     } finally {
@@ -112,7 +113,7 @@ function FinanceScreen() {
             data={transactionData}
             onNoteChanged={handleNoteChanged}
             onRowDeleted={handleRowDeleted}
-            onRowEdit={handleRowEdit}
+            updateItem={updateItem}
           />
         </Spin>
       </header>
