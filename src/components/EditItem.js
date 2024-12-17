@@ -1,42 +1,84 @@
-import { Button, Form, Select, Input, InputNumber } from "antd";
+import React, { useEffect } from "react";
+import { Modal, Form, Input, InputNumber, Button, Select } from "antd";
 
-export default function EditItem(props) {
+const Edit = ({ defaultValue, closeModal, onSubmit }) => {
+  const [form] = Form.useForm();
+
   useEffect(() => {
-    Form.setFieldsValue(props.item);
-  }, []);
+    if (defaultValue) {
+      form.setFieldsValue({
+        id: defaultValue.id,
+        note: defaultValue.note,
+        amount: defaultValue.amount,
+      });
+    }
+  }, [defaultValue, form]);
+
+  const handleSubmit = () => {
+    form.validateFields().then((values) => {
+      const updatedRecord = {
+        ...defaultValue,
+        ...values,
+      };
+      console.log("Updated Record:", updatedRecord);
+      onSubmit(updatedRecord);
+      closeModal();
+    });
+  };
 
   return (
-    <Form layout="inline" onFinish={props.onItemAdded}>
-      <Form.Item name="type" label="ชนิด" rules={[{ required: true }]}>
-        <Select
-          allowClear
-          style={{ width: "100px" }}
-          options={[
-            {
-              value: "income",
-              label: "รายรับ",
-            },
-            {
-              value: "expense",
-              label: "รายจ่าย",
-            },
-          ]}
-        />
-      </Form.Item>
+    <Modal
+      title="Edit transaction"
+      open={true}
+      onCancel={closeModal}
+      footer={[
+        <Button key="cancel" onClick={closeModal}>
+          Cancel
+        </Button>,
+        <Button key="submit" type="primary" onClick={handleSubmit}>
+          Edit
+        </Button>,
+      ]}
+    >
+      <Form form={form} layout="vertical">
+        <Form.Item name="id" label="ID" hidden>
+          <Input disabled />
+        </Form.Item>
 
-      <Form.Item name="amount" label="จำนวนเงิน" rules={[{ required: true }]}>
-        <InputNumber placeholder="จำนวนเงิน" />
-      </Form.Item>
+        <Form.Item
+          name="type"
+          label="ชนิด"
+          rules={[{ required: true, message: "กรุณาเลือกชนิด!" }]}
+          layout="horizontal"
+        >
+          <Select
+            allowClear
+            style={{ width: "100px" }}
+            options={[
+              { value: "income", label: "รายรับ" },
+              { value: "expense", label: "รายจ่าย" },
+            ]}
+          />
+        </Form.Item>
 
-      <Form.Item name="note" label="หมายเหตุ" rules={[{ required: true }]}>
-        <Input placeholder="Note" />
-      </Form.Item>
+        <Form.Item
+          name="amount"
+          label="จำนวนเงิน"
+          rules={[{ required: true, message: "กรุณากรอกจำนวนเงิน!" }]}
+        >
+          <InputNumber placeholder="จํานวนเงิน" />
+        </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Add
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          name="note"
+          label="หมายเหตุ"
+          rules={[{ required: true, message: "กรุณากรอกหมายเหตุ!" }]}
+        >
+          <Input.TextArea rows={1} />
+        </Form.Item>
+      </Form>
+    </Modal>
   );
-}
+};
+
+export default Edit;
