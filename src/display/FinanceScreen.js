@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Spin, Typography, Divider, Button } from "antd";
-import AddItem from "./components/AddItem";
-import TransactionList from "./components/TransactionList";
-import Modal from "./components/EditItem";
+import AddItem from "../components/AddItem";
+import TransactionList from "../tables/TransactionList";
+import Modal from "../components/EditItem";
 import axios from "axios";
 import dayjs from "dayjs";
+import Bar from "../components/Navbar";
 
 const URL_TXACTIONS = "/api/txactions";
 
@@ -100,7 +101,7 @@ function FinanceScreen() {
 
   return (
     <div className="App">
-      <header></header>
+      <Bar></Bar>
       <body className="App-finance-body">
         <Spin spinning={isLoading}>
           <Typography.Title>

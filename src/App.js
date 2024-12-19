@@ -2,9 +2,9 @@ import "./App.css";
 import axios from "axios";
 import { useState } from "react";
 import LoginScreen from "./display/LoginScreen";
-import FinanceScreen from "./FinanceScreen";
+import FinanceScreen from "./display/FinanceScreen";
 import { HomePage } from "./display/Home";
-
+import { UserPage } from "./display/User";
 // import { NavLink } from "react-router";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
@@ -37,38 +37,56 @@ function App() {
   // }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            isAuthenticated ? <HomePage /> : <Navigate to="/login" replace />
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            isAuthenticated ? (
-              <HomePage />
-            ) : (
-              <LoginScreen onLoginSuccess={handleLoginSuccess} />
-            )
-          }
-        />
+    <div className="App">
+      <header className="App-header">
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                isAuthenticated ? (
+                  <HomePage />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? (
+                  <HomePage />
+                ) : (
+                  <LoginScreen onLoginSuccess={handleLoginSuccess} />
+                )
+              }
+            />
 
-        <Route path="/finance" element={<FinanceScreen />} />
-        <Route
-          path="/finance"
-          element={
-            isAuthenticated ? (
-              <FinanceScreen />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+            <Route
+              path="/finance"
+              element={
+                isAuthenticated ? (
+                  <FinanceScreen />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+
+            <Route
+              path="/user"
+              element={
+                isAuthenticated ? (
+                  <UserPage />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </header>
+    </div>
   );
 }
 // <Router>
