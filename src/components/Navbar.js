@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
-import { HomeOutlined, UserOutlined, DollarOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  UserOutlined,
+  DollarOutlined,
+  UserDeleteOutlined,
+} from "@ant-design/icons";
 
 function Navbar() {
   return (
@@ -14,15 +19,21 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/finance">
+          <Link to="/Editdata">
             <DollarOutlined className="menu-icon" />
-            <span className="menu-text">Finance</span>
+            <span className="menu-text">Add/Edit/Delete</span>
           </Link>
         </li>
         <li>
           <Link to="/user">
             <UserOutlined className="menu-icon" />
             <span className="menu-text">User</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/logout">
+            <UserDeleteOutlined className="menu-icon" />
+            <span className="menu-text">Logout</span>
           </Link>
         </li>
       </ul>
