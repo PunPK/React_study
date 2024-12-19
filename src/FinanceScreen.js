@@ -5,8 +5,6 @@ import TransactionList from "./components/TransactionList";
 import Modal from "./components/EditItem";
 import axios from "axios";
 import dayjs from "dayjs";
-// import Nav from "./components/nav";
-// import { useNavigate } from "react-router-dom";
 
 const URL_TXACTIONS = "/api/txactions";
 
@@ -14,18 +12,17 @@ function FinanceScreen() {
   const [summaryAmount, setSummaryAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [transactionData, setTransactionData] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editingRecord, setEditingRecord] = useState(null);
-  // const navigate = useNavigate();
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [editData, setEditData] = useState(null);
 
   const openModal = (record) => {
-    setEditingRecord(record);
-    setIsModalVisible(true);
+    setEditData(record);
+    setIsModalShow(true);
   };
 
   const closeModal = () => {
-    setIsModalVisible(false);
-    setEditingRecord(null);
+    setIsModalShow(false);
+    setEditData(null);
   };
 
   const fetchItems = async () => {
@@ -53,10 +50,21 @@ function FinanceScreen() {
     );
   };
 
+  const handleRowDeleted = async (itemId) => {
+    try {
+      setIsLoading(true);
+      await axios.delete(`${URL_TXACTIONS}/${itemId}`);
+      fetchItems();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleRowEdited = async (item) => {
     try {
       setIsLoading(true);
-      // const params = { ...item, action_datetime: dayjs() };
       const response = await axios.put(`${URL_TXACTIONS}/${item.id}`, {
         data: item,
       });
@@ -73,21 +81,6 @@ function FinanceScreen() {
       setIsLoading(false);
     }
   };
-
-  const handleRowDeleted = async (itemId) => {
-    try {
-      setIsLoading(true);
-      await axios.delete(`${URL_TXACTIONS}/${itemId}`);
-      fetchItems();
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  // const handleEditClick = () => {
-  //   navigate("/Home");
-  // };
 
   useEffect(() => {
     fetchItems();
@@ -121,14 +114,13 @@ function FinanceScreen() {
             onNoteChanged={handleNoteChanged}
             onRowDeleted={handleRowDeleted}
           />
-          {isModalVisible && (
+          {isModalShow && (
             <Modal
-              defaultValue={editingRecord}
+              defaultValue={editData}
               closeModal={closeModal}
               onSubmit={handleRowEdited}
             />
           )}
-          {/* <Button onClick={handleEditClick}>Go to Home</Button> */}
         </Spin>
       </body>
     </div>
