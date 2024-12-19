@@ -2,9 +2,9 @@ import "./App.css";
 import axios from "axios";
 import { useState } from "react";
 import LoginScreen from "./display/LoginScreen";
-import FinanceScreen from "./display/FinanceScreen";
-import { HomePage } from "./display/Home";
-import { UserPage } from "./display/User";
+import EditPage from "./display/EditPage";
+import HomePage from "./display/Home";
+import UserPage from "./display/User";
 // import { NavLink } from "react-router";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
@@ -23,7 +23,9 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleLoginSuccess = () => setIsAuthenticated(true);
-
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
   // const Router = useRoutes([
   //   {
   //     path: "/",
@@ -63,10 +65,10 @@ function App() {
             />
 
             <Route
-              path="/finance"
+              path="/Editdata"
               element={
                 isAuthenticated ? (
-                  <FinanceScreen />
+                  <EditPage />
                 ) : (
                   <Navigate to="/login" replace />
                 )
@@ -83,27 +85,18 @@ function App() {
                 )
               }
             />
+            <Route
+              path="/logout"
+              element={
+                <Navigate to="/login" replace handleLogout={handleLogout} />
+              }
+            />
           </Routes>
         </BrowserRouter>
       </header>
     </div>
   );
 }
-// <Router>
-//   <div>
-//     <nav>
-//       <ul>
-//         <li>
-//           <Link to="/">Home</Link>
-//         </li>
-//         <li>
-//           <Link to="./LoginScreen">LoginScreen</Link>
-//         </li>
-//         <li>
-//           <Link to="/users">Users</Link>
-//         </li>
-//       </ul>
-//     </nav>
 
 // {/* A <Switch> looks through its children <Route>s and
 //       renders the first one that matches the current URL. */}

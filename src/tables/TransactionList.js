@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Table, Space, Tag, Popconfirm, Modal } from "antd";
-import { DeleteOutlined, BugOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Table, Space, Tag, Modal } from "antd";
+import { BugOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 
 export default function TransactionList(props) {
@@ -29,30 +29,6 @@ export default function TransactionList(props) {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Popconfirm
-            title="Edit the transaction"
-            description="Are you sure to Edit this transaction?"
-            onConfirm={() => props.onRowEdited(record)}
-          >
-            <Button
-              // danger
-              type="primary"
-              shape="circle"
-              icon={<EditOutlined twoToneColor="#eb2f96" />}
-            />
-          </Popconfirm>
-          <Popconfirm
-            title="Delete the transaction"
-            description="Are you sure to delete this transaction?"
-            onConfirm={() => props.onRowDeleted(record.id)}
-          >
-            <Button
-              danger
-              type="primary"
-              shape="circle"
-              icon={<DeleteOutlined />}
-            />
-          </Popconfirm>
           <Button
             type="primary"
             shape="circle"
