@@ -1,15 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import {
   HomeOutlined,
   UserOutlined,
   DollarOutlined,
-  DisconnectOutlined,
   PieChartOutlined,
+  DisconnectOutlined,
 } from "@ant-design/icons";
 
-function Navbar() {
+function Navbar({ isAuthenticated, onLogout }) {
+  const navigate = useNavigate();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    if (isAuthenticated) {
+      console.log("Logging out...");
+      onLogout();
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="navigation-menu">
       <ul>
@@ -38,10 +48,13 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/logout">
-            <DisconnectOutlined className="menu-icon" />
-            <span className="menu-text">Logout</span>
-          </Link>
+          {/* Allow logout only if the user is authenticated */}
+          {isAuthenticated && (
+            <a href="/logout" onClick={handleLogout}>
+              <DisconnectOutlined className="menu-icon" />
+              <span className="menu-text">Logout</span>
+            </a>
+          )}
         </li>
       </ul>
     </div>

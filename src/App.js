@@ -6,6 +6,7 @@ import EditPage from "./display/EditPage";
 import HomePage from "./display/Home";
 import UserPage from "./display/User";
 import { Dashboard } from "./display/dashborad";
+import Bar from "./components/Navbar";
 // import { NavLink } from "react-router";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
@@ -98,14 +99,14 @@ function App() {
                 )
               }
             />
-
-            <Route
-              path="/logout"
-              element={
-                <Navigate to="/login" replace handleLogout={handleLogout} />
-              }
-            />
           </Routes>
+          <div>
+            {isAuthenticated ? (
+              <Bar onLogout={handleLogout} isAuthenticated={isAuthenticated} />
+            ) : (
+              <Navigate to="/login" />
+            )}
+          </div>
         </BrowserRouter>
       </header>
     </div>
