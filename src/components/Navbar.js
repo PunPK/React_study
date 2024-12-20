@@ -5,7 +5,8 @@ import {
   HomeOutlined,
   UserOutlined,
   DollarOutlined,
-  UserDeleteOutlined,
+  DisconnectOutlined,
+  PieChartOutlined,
 } from "@ant-design/icons";
 
 function Navbar() {
@@ -16,6 +17,12 @@ function Navbar() {
           <Link to="/">
             <HomeOutlined className="menu-icon" />
             <span className="menu-text">Home</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/dashboard">
+            <PieChartOutlined className="menu-icon" />
+            <span className="menu-text">Dashboard</span>
           </Link>
         </li>
         <li>
@@ -32,7 +39,7 @@ function Navbar() {
         </li>
         <li>
           <Link to="/logout">
-            <UserDeleteOutlined className="menu-icon" />
+            <DisconnectOutlined className="menu-icon" />
             <span className="menu-text">Logout</span>
           </Link>
         </li>
