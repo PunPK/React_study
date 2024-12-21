@@ -75,53 +75,6 @@ export const Dashboard = () => {
           จำนวนเงินปัจจุบัน {summary.income - summary.expense} บาท
         </Typography.Title>
         <Divider>บันทึก รายรับ - รายจ่าย</Divider>
-        {/* <div className="dataCard revenueCard">
-        <Line
-          data={{
-            labels: ["A", "B", "C"],
-            datasets: [
-              {
-                label: "Count",
-                data: [100, 200, 300],
-              },
-            ],
-          }}
-          options={{
-            elements: {
-              line: {
-                tension: 0.5,
-              },
-            },
-            plugins: {
-              title: {
-                text: "Monthly Revenue & Cost",
-              },
-            },
-          }}
-        />
-      </div> */}
-
-        {/* <div className="dataCard customerCard">
-        <Bar
-          data={{
-            labels: ["A", "B", "C"],
-            datasets: [
-              {
-                label: "Count",
-                data: [100, 200, 300],
-              },
-            ],
-          }}
-          options={{
-            plugins: {
-              title: {
-                text: "Revenue Source",
-              },
-            },
-          }}
-        />
-      </div> */}
-
         <div className="dataCard categoryCard">
           <Doughnut
             data={{

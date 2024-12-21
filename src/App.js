@@ -5,6 +5,7 @@ import LoginScreen from "./display/LoginScreen";
 import EditPage from "./display/EditPage";
 import HomePage from "./display/Home";
 import UserPage from "./display/User";
+import { CostGraph } from "./display/CostGraph";
 import { Dashboard } from "./display/dashborad";
 import Bar from "./components/Navbar";
 // import { NavLink } from "react-router";
@@ -83,6 +84,17 @@ function App() {
               element={
                 isAuthenticated ? (
                   <Dashboard />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+
+            <Route
+              path="/costgraph"
+              element={
+                isAuthenticated ? (
+                  <CostGraph />
                 ) : (
                   <Navigate to="/login" replace />
                 )
