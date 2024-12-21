@@ -4,54 +4,45 @@
     top: 0;
     height: 100%;
     width: 250px;
-    background-color: #2c2c2c; /* Dark gray background */
+    background-color: #2c2c2c;
     color: white;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
   }
-  
-  /* Remove default list styles */
+
   .navigation-menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
   
-  /* Styling for each menu item */
   .navigation-menu li {
     margin-bottom: 20px;
   }
   
   .navigation-menu a {
-    display: flex; /* Align icon and text */
+    display: flex;
     align-items: center;
-    text-decoration: none; /* Remove underline */
-    color: white; /* Text color */
+    text-decoration: none;
+    color: white;
     font-size: 16px;
     padding: 10px 15px;
     border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
   }
   
   .navigation-menu a:hover {
-    background-color: #1a1a1a; /* Slightly darker background on hover */
-    transform: scale(1.02); /* Subtle zoom effect */
+    background-color: #1a1a1a;
+    transform: scale(1.02);
   }
   
-  /* Styling for the icons */
   .menu-icon {
     font-size: 20px;
-    margin-right: 10px; /* Space between icon and text */
+    margin-right: 10px;
   }
-  
-  /* Styling for the text */
+
   .menu-text {
-    flex-grow: 1; /* Make text fill the remaining space */
+    flex-grow: 1;
   }
   
-  /* Add space for the last item if needed */
-  .navigation-menu li:last-child {
-    margin-bottom: 0;
-  }

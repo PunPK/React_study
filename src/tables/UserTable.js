@@ -1,13 +1,13 @@
 import React from "react";
 // import { Table } from "antd";
-import { Button, Table, Space, Tag, Popconfirm, Modal } from "antd";
-import { DeleteOutlined, BugOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Table, Space, Tag, Popconfirm } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 export default function UserTable(props) {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name", // A new key, can be anything
+      dataIndex: "name",
       render: (text, record) => `${record.firstname} ${record.lastname}`,
     },
     {
@@ -23,7 +23,6 @@ export default function UserTable(props) {
       dataIndex: "createdAt",
       render: (record) => dayjs(record).format("DD/MM/YYYY - HH:mm"),
     },
-    ,
     {
       title: "Confirmed",
       dataIndex: "confirmed",

@@ -1,10 +1,10 @@
 // import React from "react";
-import { Chart as ChartJS, defaults } from "chart.js/auto";
+import { defaults } from "chart.js/auto";
 import Bar from "../components/Navbar";
-import { Doughnut, Line } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import "./dashborad.css";
 import React, { useState, useEffect } from "react";
-import { Spin, Typography, Divider, Button } from "antd";
+import { Spin, Typography, Divider } from "antd";
 // import AddItem from "../components/AddItem";
 // import EditDataList from "../tables/editDataList";
 // import Modal from "../components/EditItem";
@@ -39,7 +39,7 @@ export const Dashboard = () => {
         key: row.id,
         ...row.attributes,
       }));
-      console.log(data);
+      // console.log(data);
       setTransactionData(data);
     } catch (err) {
       console.log(err);

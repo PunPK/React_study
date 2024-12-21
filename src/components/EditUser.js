@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Modal, Form, Input, InputNumber, Button, Select } from "antd";
+import { Modal, Form, Input, Button } from "antd";
 
 const Edit = ({ defaultValue, closeModal, onSubmit }) => {
   const [form] = Form.useForm();
@@ -22,7 +22,7 @@ const Edit = ({ defaultValue, closeModal, onSubmit }) => {
         ...defaultValue,
         ...values,
       };
-      console.log("Updated Record:", updatedRecord);
+      // console.log("Updated Record:", updatedRecord);
       onSubmit(updatedRecord);
       closeModal();
     });
