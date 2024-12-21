@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Spin, Typography, Divider, Button } from "antd";
-import AddItem from "../components/AddItem";
+import { Spin, Typography, Divider } from "antd";
+// import AddItem from "../components/AddItem";
 import TransactionList from "../tables/TransactionList";
-import Modal from "../components/EditItem";
+// import Modal from "../components/EditItem";
 import axios from "axios";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import Bar from "../components/Navbar";
 
 const URL_TXACTIONS = "/api/txactions";
@@ -23,21 +23,13 @@ function HomePage() {
         key: row.id,
         ...row.attributes,
       }));
-      console.log(data);
+      // console.log(data);
       setTransactionData(data);
     } catch (err) {
       console.log(err);
     } finally {
       setIsLoading(false);
     }
-  };
-  const handleNoteChanged = (id, note) => {
-    setTransactionData(
-      transactionData.map((transaction) => {
-        transaction.note = transaction.id === id ? note : transaction.note;
-        return transaction;
-      })
-    );
   };
 
   useEffect(() => {

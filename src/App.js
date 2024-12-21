@@ -7,17 +7,11 @@ import HomePage from "./display/Home";
 import UserPage from "./display/User";
 import { CostGraph } from "./display/CostGraph";
 import { Dashboard } from "./display/dashborad";
+import Signup from "./display/Signup";
 import Bar from "./components/Navbar";
 // import { NavLink } from "react-router";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import {
-  Routes,
-  Route,
-  Router,
-  useRoutes,
-  Navigate,
-  BrowserRouter,
-} from "react-router-dom";
+import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
@@ -46,6 +40,12 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Routes>
+            <Route
+              path="/signup"
+              element={
+                !isAuthenticated ? <Signup /> : <Navigate to="/login" replace />
+              }
+            />
             <Route
               path="/"
               element={
@@ -112,6 +112,7 @@ function App() {
               }
             />
           </Routes>
+          <div></div>
           <div>
             {isAuthenticated ? (
               <Bar onLogout={handleLogout} isAuthenticated={isAuthenticated} />
@@ -124,35 +125,5 @@ function App() {
     </div>
   );
 }
-
-// {/* A <Switch> looks through its children <Route>s and
-//       renders the first one that matches the current URL. */}
-// {/* <Switch>
-//   <Route path="/about">
-//     <About />
-//   </Route>
-//   <Route path="/users">
-//     <Users />
-//   </Route>
-//   <Route path="/">
-//     <Home />
-//   </Route>
-// </Switch> */}
-//       </div>
-//     </Router>
-//   );
-// }
-
-{
-  /* <div className="App">
-  <header className="App-header">
-    {!isAuthenticated && <LoginScreen onLoginSuccess={handleLoginSuccess} />}
-    {isAuthenticated && <FinanceScreen />}
-  </header>
-</div>; */
-}
-
-//   );
-// }
 
 export default App;
