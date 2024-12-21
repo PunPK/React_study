@@ -40,12 +40,7 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Routes>
-            <Route
-              path="/signup"
-              element={
-                !isAuthenticated ? <Signup /> : <Navigate to="/login" replace />
-              }
-            />
+            <Route path="/signup" element={<Signup replace />} />
             <Route
               path="/"
               element={

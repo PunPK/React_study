@@ -50,7 +50,7 @@ const Edit = ({ defaultValue, closeModal, onSubmit }) => {
         <Form.Item
           name="username"
           label="username"
-          rules={[{ required: true, message: "กรุณาเลือกชนิด!" }]}
+          rules={[{ required: true, message: "กรุณาใส่ username!" }]}
           layout="horizontal"
         >
           <Input.TextArea rows={1} />
@@ -59,7 +59,7 @@ const Edit = ({ defaultValue, closeModal, onSubmit }) => {
         <Form.Item
           name="email"
           label="email"
-          rules={[{ required: true, message: "กรุณาเลือกชนิด!" }]}
+          rules={[{ required: true, message: "กรุณาใส่ email!" }]}
           layout="horizontal"
         >
           <Input.TextArea rows={1} />
@@ -68,7 +68,7 @@ const Edit = ({ defaultValue, closeModal, onSubmit }) => {
         <Form.Item
           name="firstname"
           label="firstname"
-          rules={[{ required: true, message: "กรุณาเลือกชนิด!" }]}
+          rules={[{ required: true, message: "กรุณาใส่ firstname!" }]}
           layout="horizontal"
         >
           <Input.TextArea rows={1} />
@@ -85,7 +85,7 @@ const Edit = ({ defaultValue, closeModal, onSubmit }) => {
         <Form.Item
           name="lastname"
           label="lastname"
-          rules={[{ required: true, message: "กรุณากรอกหมายเหตุ!" }]}
+          rules={[{ required: true, message: "กรุณาใส่ lastname!!" }]}
         >
           <Input.TextArea rows={1} />
         </Form.Item>
